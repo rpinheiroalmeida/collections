@@ -3,17 +3,15 @@ package collections
 import (
 	"reflect"
 	"testing"
-
-	"github.com/rpinheiroalmeida/linalg/vector"
 )
 
 func TestNewCounter(t *testing.T) {
 	cases := []struct {
-		sample vector.Vector
+		sample []float64
 		want   *Counter
 	}{
-		{vector.Vector{1.0, 2.0}, &Counter{map[float64]int{1.0: 1, 2.0: 1}}},
-		{vector.Vector{1.0, 1.0}, &Counter{map[float64]int{1.0: 2}}},
+		{[]float64{1.0, 2.0}, &Counter{map[float64]int{1.0: 1, 2.0: 1}}},
+		{[]float64{1.0, 1.0}, &Counter{map[float64]int{1.0: 2}}},
 	}
 
 	for _, c := range cases {
@@ -32,7 +30,7 @@ func TestNewCounter_WhenSampleIsEmpty(t *testing.T) {
 		}
 	}()
 
-	NewCounter(vector.Vector{})
+	NewCounter([]float64{})
 }
 
 func TestMaxValues(t *testing.T) {
@@ -60,18 +58,18 @@ func TestMaxValues_WhenCounterIsEmpty(t *testing.T) {
 		}
 	}()
 
-	NewCounter(vector.Vector{}).MaxValue()
+	NewCounter([]float64{}).MaxValue()
 }
 
 func TestValues(t *testing.T) {
 	cases := []struct {
-		sample vector.Vector
+		sample []float64
 		want   []int
 	}{
-		{vector.Vector{1.0, 2.0, 3.0, 4.0}, []int{1}},
-		{vector.Vector{1.0, 2.0, 1.0, 4.0}, []int{1, 2}},
-		{vector.Vector{1.0, 2.0, 1.0, 1.0}, []int{1, 3}},
-		{vector.Vector{1.0, 1.0, 1.0, 1.0}, []int{4}},
+		{[]float64{1.0, 2.0, 3.0, 4.0}, []int{1}},
+		{[]float64{1.0, 2.0, 1.0, 4.0}, []int{1, 2}},
+		{[]float64{1.0, 2.0, 1.0, 1.0}, []int{1, 3}},
+		{[]float64{1.0, 1.0, 1.0, 1.0}, []int{4}},
 	}
 
 	for _, c := range cases {
@@ -90,5 +88,5 @@ func TestValues_WhenCounterIsEmpty(t *testing.T) {
 		}
 	}()
 
-	NewCounter(vector.Vector{}).Values()
+	NewCounter([]float64{}).Values()
 }
