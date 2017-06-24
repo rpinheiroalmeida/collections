@@ -25,62 +25,6 @@ func (v Vector) Swap(i, j int) {
 	v[i], v[j] = v[j], v[i]
 }
 
-//Add subtracts two vectors element wise
-func (v Vector) Add(w Vector) Vector {
-	tuples := Zip(v, w)
-
-	result := make(Vector, len(tuples))
-
-	for i, value := range tuples {
-		result[i] = value.A + value.B
-	}
-	return result
-}
-
-//Subtract subtracts two vectors elementwise
-func (v Vector) Subtract(w Vector) Vector {
-	tuples := Zip(v, w)
-
-	result := make(Vector, len(tuples))
-
-	for i, value := range tuples {
-		result[i] = value.A - value.B
-	}
-	return result
-}
-
-func (v Vector) Dot(w Vector) float64 {
-	tuples := Zip(v, w)
-	var sum float64
-	for _, tuple := range tuples {
-		sum += tuple.A * tuple.B
-	}
-	return sum
-}
-
-func (v Vector) SumOfSquares() float64 {
-	return v.Dot(v)
-}
-
-func (v Vector) SquaredDistance(w Vector) float64 {
-	result := v.Subtract(w)
-	return result.SumOfSquares()
-}
-
-func (v Vector) Distance(w Vector) float64 {
-	return math.Sqrt(v.SquaredDistance(w))
-}
-
-func matchingValue(fn binaryCondition, initial float64, vector Vector) float64 {
-	validate(vector)
-
-	current := initial
-	for _, value := range vector {
-		current = fn(current, value)
-	}
-	return current
-}
-
 func (v Vector) Max() float64 {
 	return matchingValue(math.Max, math.Inf(-1), v)
 }
@@ -91,4 +35,14 @@ func (v Vector) Min() float64 {
 
 func (v Vector) Empty() bool {
 	return v.Len() == 0
+}
+
+func matchingValue(fn binaryCondition, initial float64, vector Vector) float64 {
+	validate(vector)
+
+	current := initial
+	for _, value := range vector {
+		current = fn(current, value)
+	}
+	return current
 }
