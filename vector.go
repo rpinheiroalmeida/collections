@@ -4,14 +4,8 @@ import (
 	"math"
 )
 
-type Vector []float64
 type binaryCondition func(v1, v2 float64) float64
-
-func validate(v Vector) {
-	if len(v) == 0 {
-		panic("empty sample supplyed")
-	}
-}
+type Vector []float64
 
 func (v Vector) Len() int {
 	return len(v)
@@ -45,4 +39,10 @@ func matchingValue(fn binaryCondition, initial float64, vector Vector) float64 {
 		current = fn(current, value)
 	}
 	return current
+}
+
+func validate(v Vector) {
+	if len(v) == 0 {
+		panic("empty sample supplyed")
+	}
 }
